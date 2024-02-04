@@ -7,7 +7,7 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/${branch}']], extensions: [], userRemoteConfigs: [[credentialsId: '97f52220-424c-47aa-bb95-ff4f9b1ddefc', url: 'https://github.com/pupillight/jpa-demo']])
             }
         }
-        stage('mvn package') {
+        stage('mvn package dev') {
             steps {
                 sh './mvnw clean  package -Dmaven.test.skip=true'
             }
