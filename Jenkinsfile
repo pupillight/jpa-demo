@@ -10,6 +10,7 @@ pipeline {
         stage('mvn package') {
             steps {
                 sh './mvnw clean  package -Dmaven.test.skip=true'
+                sh ' docker build --build-arg JAR_FILE=target/jpa-demo-0.0.1-SNAPSHOT.jar -t jpa-demo.jar . '
             }
         }
     }
