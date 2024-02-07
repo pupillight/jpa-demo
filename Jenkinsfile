@@ -10,8 +10,24 @@ pipeline {
         stage('mvn package dev') {
             steps {
                 sh './mvnw clean  package -Dmaven.test.skip=true'
-                sh ' docker build --build-arg JAR_FILE=target/jpa-demo-0.0.1-SNAPSHOT.jar -t jpa-demo.jar . '
+                sh ' docker build --build-arg JAR_FILE=target/jpa-demo-0.0.1-SNAPSHOT.jar -t jpa-demo . '
             }
         }
+
+        stage('create docker image') {
+                    steps {
+                       // This step should not normally be used in your script. Consult the inline help for details.
+                       withDockerContainer('jpa-demo') {
+                           // some block
+                       }
+
+                       // This step should not normally be used in your script. Consult the inline help for details.
+                       withDockerRegistry(credentialsId: '457b3a0d-b0d8-4176-b75a-8f8a9a2e439f', url: 'https://hub.docker.com/') {
+                           // some block
+                       }
+                    }
+        }
+
+
     }
 }
